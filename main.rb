@@ -15,3 +15,7 @@ board.display
 
 print "\n"
 
+square = Square.new("X", fg: :red, bg: :light_green)
+print square.to_s
+
+print "\n"

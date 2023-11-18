@@ -1,5 +1,6 @@
 require './board'
 require './piece'
+require './grid'
 
 
 class Board
@@ -66,7 +67,7 @@ class Board
   end
 
   def display
-    self.display_rank_labels      
+    self.display_rank_labels
 
     @rows.reverse().each_with_index do |row, i|
       rank_number = @rows.length - i

@@ -1,7 +1,7 @@
 require './text'
 
 class Piece
-  def initialize(symbol, color) 
+  def initialize(symbol, color)
     @symbol = symbol
     @color = color
   end
@@ -11,7 +11,7 @@ class Piece
 
     if @color == 'WHITE'
       " #{s} "
-    else 
+    else
       "*#{s}*"
     end
   end
@@ -61,4 +61,3 @@ class King < Piece
       super 'K', color
   end
 end
-
