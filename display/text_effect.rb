@@ -1,4 +1,3 @@
-
 class TextEffect
   attr_accessor :start_code, :end_code
 
@@ -28,7 +27,7 @@ class TextEffect
     bold: 1,
     faint: 2,
     italic: 3,
-    underline: 4
+    underline: 4,
   }
 
   def initialize(start_code, end_code = 0)
@@ -49,24 +48,4 @@ class TextEffect
   def self.underline
     TextEffect.new(@@style_codes[:underline])
   end
-end
-
-class Square
-  def initialize(char, fg: :black, bg: :white)
-    @char = char
-    @fg_color = fg
-    @bg_color = bg
-  end
-
-  def to_s
-    s = " #{@char} "
-    s = TextEffect.for_color(@fg_color, is_fg: true).apply(s)
-    s = TextEffect.for_color(@bg_color, is_fg: false).apply(s)
-    s = TextEffect.underline.apply(s)
-  end
-end
-
-class Grid
-
-
 end
