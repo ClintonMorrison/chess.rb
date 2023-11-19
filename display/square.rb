@@ -1,7 +1,7 @@
 require "./display/text_effect"
 
 class Square
-  def initialize(char, fg: :black, bg: :white, underline: true)
+  def initialize(char, fg: :black, bg: :white, underline: false)
     @char = char
     @fg_color = fg
     @bg_color = bg
@@ -10,10 +10,11 @@ class Square
 
   def to_s
     s = " #{@char} "
-    s = TextEffect.for_color(@fg_color, is_fg: true).apply(s)
-    s = TextEffect.for_color(@bg_color, is_fg: false).apply(s)
+    s = TextEffect.fg_color(@fg_color).apply(s)
+    s = TextEffect.bg_color(@bg_color).apply(s)
     if @underline
       s = TextEffect.underline.apply(s)
     end
+    s
   end
 end

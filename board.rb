@@ -16,75 +16,81 @@ class Board
 
     # Setup initial game board
     @rows[0] = [
-      Rook.new("WHITE"),
-      Knight.new("WHITE"),
-      Bishop.new("WHITE"),
-      Queen.new("WHITE"),
-      King.new("WHITE"),
-      Bishop.new("WHITE"),
-      Knight.new("WHITE"),
-      Rook.new("WHITE"),
+      Rook.new(:white),
+      Knight.new(:white),
+      Bishop.new(:white),
+      Queen.new(:white),
+      King.new(:white),
+      Bishop.new(:white),
+      Knight.new(:white),
+      Rook.new(:white),
     ]
     @rows[1] = [
-      Pawn.new("WHITE"),
-      Pawn.new("WHITE"),
-      Pawn.new("WHITE"),
-      Pawn.new("WHITE"),
-      Pawn.new("WHITE"),
-      Pawn.new("WHITE"),
-      Pawn.new("WHITE"),
-      Pawn.new("WHITE"),
+      Pawn.new(:white),
+      Pawn.new(:white),
+      Pawn.new(:white),
+      Pawn.new(:white),
+      Pawn.new(:white),
+      Pawn.new(:white),
+      Pawn.new(:white),
+      Pawn.new(:white),
     ]
     @rows[7] = [
-      Pawn.new("BLACK"),
-      Pawn.new("BLACK"),
-      Pawn.new("BLACK"),
-      Pawn.new("BLACK"),
-      Pawn.new("BLACK"),
-      Pawn.new("BLACK"),
-      Pawn.new("BLACK"),
-      Pawn.new("BLACK"),
+      Pawn.new(:black),
+      Pawn.new(:black),
+      Pawn.new(:black),
+      Pawn.new(:black),
+      Pawn.new(:black),
+      Pawn.new(:black),
+      Pawn.new(:black),
+      Pawn.new(:black),
     ]
     @rows[8] = [
-      Rook.new("BLACK"),
-      Knight.new("BLACK"),
-      Bishop.new("BLACK"),
-      Queen.new("BLACK"),
-      King.new("BLACK"),
-      Bishop.new("BLACK"),
-      Knight.new("BLACK"),
-      Rook.new("BLACK"),
+      Rook.new(:black),
+      Knight.new(:black),
+      Bishop.new(:black),
+      Queen.new(:black),
+      King.new(:black),
+      Bishop.new(:black),
+      Knight.new(:black),
+      Rook.new(:black),
     ]
   end
 
-  def display_rank_labels
-    print "   "
-    for letter in @@rank_letters
-      print " #{letter} "
-    end
-    print "\n"
-  end
+  def render
+    rank_labels = @@rank_letters.map { |letter| label_square(letter) }
+    rank_labels.unshift(label_square(" "))
+    rank_labels.push(label_square(" "))
 
-  def display
-    self.display_rank_labels
+    grid_rows = []
 
     @rows.reverse().each_with_index do |row, i|
-      rank_number = @rows.length - i
-      print " #{rank_number} "
+      current_row = []
 
-      row.each_with_index do |col, j|
-        colText = "#{col.nil? ? "   " : col.string}"
-        if (i + j) % 2 == 0
-          print colText.bg_gray.underline
-        else
-          print colText.bg_green.underline
-        end
+      file_number = @rows.length - i
+      current_row.push(label_square(file_number))
+
+      row.each_with_index do |piece, j|
+        squareText = "#{piece.nil? ? " " : piece.to_s}"
+        bg_color = (i + j) % 2 == 0 ? :white : :green
+        fg_color = piece&.color == :black ? :red : :blue
+        current_row.push(Square.new(squareText, fg: fg_color, bg: bg_color, underline: true))
       end
 
-      print " #{rank_number} "
-      print "\n"
+      current_row.push(label_square(file_number))
+      grid_rows.push(current_row)
     end
 
-    self.display_rank_labels
+    # Add rank labels at bottom and top
+    grid_rows.unshift(rank_labels)
+    grid_rows.push(rank_labels)
+
+    Grid.new(grid_rows)
+  end
+
+  private
+
+  def label_square(char)
+    Square.new(char, fg: :white, bg: :black)
   end
 end

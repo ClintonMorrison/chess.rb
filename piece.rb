@@ -1,61 +1,50 @@
 require "./text"
 
 class Piece
-  def initialize(symbol, color)
+  attr_accessor :symbol, :color
+
+  def initialize(symbol, bg_color)
     @symbol = symbol
-    @color = color
+    @color = bg_color
   end
 
-  def string
+  def to_s
     s = @symbol
-
-    if @color == "WHITE"
-      " #{s} "
-    else
-      "*#{s}*"
-    end
   end
 end
 
-# P = PAWN
-# N = KNIGHT
-# B = BISHOP
-# R = ROOK
-# Q = QUEEN
-# K = KING
-
 class Pawn < Piece
-  def initialize(color)
-    super "P", color
+  def initialize(bg_color)
+    super "P", bg_color
   end
 end
 
 class Knight < Piece
-  def initialize(color)
-    super "N", color
+  def initialize(bg_color)
+    super "N", bg_color
   end
 end
 
 class Bishop < Piece
-  def initialize(color)
-    super "B", color
+  def initialize(bg_color)
+    super "B", bg_color
   end
 end
 
 class Rook < Piece
-  def initialize(color)
-    super "R", color
+  def initialize(bg_color)
+    super "R", bg_color
   end
 end
 
 class Queen < Piece
-  def initialize(color)
-    super "Q", color
+  def initialize(bg_color)
+    super "Q", bg_color
   end
 end
 
 class King < Piece
-  def initialize(color)
-    super "K", color
+  def initialize(bg_color)
+    super "K", bg_color
   end
 end

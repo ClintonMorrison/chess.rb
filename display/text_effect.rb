@@ -45,6 +45,17 @@ class TextEffect
     TextEffect.new(code)
   end
 
+  def self.fg_color(color_name)
+    code = @@color_codes.fetch(color_name, 30)
+    TextEffect.new(code)
+  end
+
+  def self.bg_color(color_name)
+    code = @@color_codes.fetch(color_name, 30)
+    code = code + 10 # bg codes are 10 higher
+    TextEffect.new(code)
+  end
+
   def self.underline
     TextEffect.new(@@style_codes[:underline])
   end
