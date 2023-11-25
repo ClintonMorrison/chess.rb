@@ -2,6 +2,8 @@ require "./text"
 require "./board"
 require "./display/grid"
 require "./display/square"
+require "./position"
+require "./game"
 
 # P = PAWN
 # N = KNIGHT
@@ -10,10 +12,8 @@ require "./display/square"
 # K = KING
 # Q = QUEEN
 
-print "\n"
+game = Game.new
 
-board = Board.new
-
-print board.render
-
-print "\n"
+while !game.is_over
+  move = game.run
+end
